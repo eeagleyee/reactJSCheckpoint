@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { product } from "./product"; // Importing product details from product.js
 import { Card, Container, Row, Col } from "react-bootstrap";
@@ -8,9 +8,20 @@ import Description from "./components/Description";
 import Price from "./components/Price";
 import "./App.css";
 
-const firstName = "Joseph"; // Declaring firstName variable with a value
-
 const App = () => {
+  const [firstName, setFirstName] = useState("Joseph");
+  const [promptShown, setPromptShown] = useState(false); // Flag to track if prompt was shown
+
+  useEffect(() => {
+    if (firstName === "Joseph" && !promptShown) {
+      const enteredName = window.prompt("Please enter your first name:");
+      if (enteredName) {
+        setFirstName(enteredName.trim());
+        setPromptShown(true); // Set the flag to indicate that prompt was shown
+      }
+    }
+  }, [firstName, promptShown]);
+
   return (
     <Container fluid className="App">
       {/* Title for the product details */}
